@@ -1,0 +1,5 @@
+git init
+git add .
+git commmit -m "Add all my files"
+git add remote origin https://github.com/OzodAmin/SafiaBusinessWeb.git
+git push -u origin master

@@ -91,7 +91,7 @@
         <div class="tab-pane" id="tab_base">
             @foreach ( $baseArray as $i => $itemName )
                 <?php if (isset($productBases)) $checked = in_array($i, $productBases) ? true : false; ?>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     {!! Form::checkbox( 'base_id[]', $i, $checked,['class' => 'flat-red', 'id' => $itemName] ) !!}
                     {!! Form::label($itemName, $itemName, ['class' => 'bg-info']) !!}
                 </div>
@@ -100,7 +100,7 @@
         <div class="tab-pane" id="tab_cover">
             @foreach ( $coverArray as $i => $itemName )
                 <?php if (isset($productCovers)) $checked = in_array($i, $productCovers) ? true : false; ?>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     {!! Form::checkbox( 'cover_id[]', $i, $checked, ['class' => 'flat-red', 'id' => $itemName] ) !!}
                     {!! Form::label($itemName, $itemName, ['class' => 'bg-info']) !!}
                 </div>
@@ -109,7 +109,7 @@
         <div class="tab-pane" id="tab_cream">
             @foreach ( $creamArray as $i => $itemName )
             <?php if (isset($productCreams)) $checked = in_array($i, $productCreams) ? true : false; ?>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     {!! Form::checkbox( 'cream_id[]', $i, $checked, ['class' => 'flat-red', 'id' => $itemName] ) !!}
                     {!! Form::label($itemName, $itemName, ['class' => 'bg-info']) !!}
                 </div>
@@ -118,7 +118,7 @@
         <div class="tab-pane" id="tab_decor">
             @foreach ( $decorArray as $i => $itemName )
             <?php if (isset($productDecors)) $checked = in_array($i, $productDecors) ? true : false; ?>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     {!! Form::checkbox( 'decor_id[]', $i, $checked, ['class' => 'flat-red', 'id' => $itemName] ) !!}
                     {!! Form::label($itemName, $itemName, ['class' => 'bg-info']) !!}
                 </div>
@@ -127,7 +127,7 @@
         <div class="tab-pane" id="tab_filling">
             @foreach ( $fillingArray as $i => $itemName )
             <?php if (isset($productFillings)) $checked = in_array($i, $productFillings) ? true : false; ?>
-                <div class="form-group col-sm-3">
+                <div class="form-group col-sm-4">
                     {!! Form::checkbox( 'filling_id[]', $i, $checked, ['class' => 'flat-red', 'id' => $itemName] ) !!}
                     {!! Form::label($itemName, $itemName, ['class' => 'bg-info']) !!}
                 </div>

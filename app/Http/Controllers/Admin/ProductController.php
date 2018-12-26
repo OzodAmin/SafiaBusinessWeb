@@ -55,43 +55,43 @@ class ProductController extends AppBaseController
         foreach($measures as $item) {
             $measureArray[$item->id] = $item->title_short;
         }
-
+        asort($measureArray);
         $bases = Base::withTranslation()->get();
         $baseArray = [];
         foreach($bases as $item) {
             $baseArray[$item->id] = $item->title;
         }
-
+        asort($baseArray);
         $covers = Cover::withTranslation()->get();
         $coverArray = [];
         foreach($covers as $item) {
             $coverArray[$item->id] = $item->title;
         }
-
+        asort($coverArray);
         $creams = Cream::withTranslation()->get();
         $creamArray = [];
         foreach($creams as $item) {
             $creamArray[$item->id] = $item->title;
         }
-
+        asort($creamArray);
         $decors = Decor::withTranslation()->get();
         $decorArray = [];
         foreach($decors as $item) {
             $decorArray[$item->id] = $item->title;
         }
-
+        asort($decorArray);
         $fillings = Filling::withTranslation()->get();
         $fillingArray = [];
         foreach($fillings as $item) {
             $fillingArray[$item->id] = $item->title;
         }
-
+        asort($fillingArray);
         $size = Size::get();
         $sizeArray = [];
         foreach($size as $item) {
             $sizeArray[$item->id] = $item->title;
         }
-
+        asort($sizeArray);
         return view('admin.products.create', 
             compact(['categoriesArray', 'baseArray', 'coverArray', 'creamArray', 'decorArray', 'fillingArray', 'sizeArray', 'measureArray']));
     }

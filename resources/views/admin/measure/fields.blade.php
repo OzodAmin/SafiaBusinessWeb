@@ -20,7 +20,7 @@
                 {!! Form::label($locale.'[title]', 'Заголовок короткий:') !!}
                 {{ Form::text(
                     $locale.'[title_short]',
-                    isset($measure) ? $measure->translate($locale)->title : null,
+                    isset($measure) ? $measure->translate($locale)->title_short : null,
                     ['class' => 'form-control'])
                 }}
             </div>
