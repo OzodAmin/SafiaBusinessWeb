@@ -1,0 +1,9 @@
+Controller:
+
+	php artisan make:controller Admin\FillingController --resource
+	php artisan make:controller Admin\DecorController --resource
+	php artisan make:controller Admin\CoverController --resource
+
+	Route::resource('bases', 'Admin\BaseController');
+
+######################################################
