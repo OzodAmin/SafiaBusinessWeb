@@ -43,7 +43,7 @@
                                 @if ($product->featured_image)
                                     {{ Html::image('uploads/product/thumb_'.$product->featured_image) }}
                                 @else
-                                    {{ Html::image('uploads/product/320x320.jpg') }}
+                                    {{ Html::image('720x960.jpg') }}
                                 @endif
 
                                 <div class="block2-overlay trans-0-4">

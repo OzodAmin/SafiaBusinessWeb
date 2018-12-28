@@ -37,7 +37,7 @@ class ProductController extends AppBaseController
     public function index(Request $request)
     {
         $this->repository->pushCriteria(new RequestCriteria($request));
-        $products = $this->repository->paginate(20);
+        $products = $this->repository->paginate(12);
 
         return view('admin.products.index')->with('products', $products);
     }
@@ -184,14 +184,6 @@ class ProductController extends AppBaseController
         $productCreams = $product->creams->pluck('id')->all();
         $productDecors = $product->decors->pluck('id')->all();
         $productFillings = $product->fillings->pluck('id')->all();
-
-        // echo "<pre>"; 
-        // echo "productBases";    print_r($productBases);
-        // echo "productCovers";   print_r($productCovers);
-        // echo "productCreams";   print_r($productCreams);
-        // echo "productDecors";   print_r($productDecors);
-        // echo "productFillings"; print_r($productFillings);
-        // die("###");
 
         return view('admin.products.edit',
             compact(['product', 'categoriesArray', 'baseArray', 'coverArray', 'creamArray', 'decorArray', 'fillingArray', 'sizeArray', 'measureArray',

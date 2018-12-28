@@ -8,6 +8,7 @@ function()
 {
 	Route::get('/', 'HomeController@index');
     Route::get('product/{slug}', ['as'=> 'product.show', 'uses' => 'HomeController@showProduct']);
+    Route::get('category/{slug}', ['as'=> 'category.show', 'uses' => 'HomeController@showCatPro']);
     Route::get('add-to-cart','HomeController@addToCart');
     Route::get('shopping-cart',['as'=> 'product.shoppingCart','uses' =>'HomeController@showCart']);
     Auth::routes();

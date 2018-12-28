@@ -28,16 +28,16 @@
                             @foreach ($products as $key => $product)
 
                                 <tr class="products-users">
-                                    <td><center>
+                                    <td class="col-sm-2"><center>
                                         @if ($product->featured_image)
-                                            {{ Html::image('uploads/product/admin_'.$product->featured_image, null, ['class'=>'visible animated']) }}
+                                            {{ Html::image('uploads/product/admin_'.$product->featured_image) }}
                                         @else
-                                            {{ Html::image('uploads/product/320x320.jpg', null, ['class'=>'visible animated']) }}
+                                            {{ Html::image('admin/320x320.jpg') }}
                                         @endif
                                     </center></td>
-                                    <td>{{ $product->translate('ru')->title }}</td>
-                                    <td>{{ $product->category->title }}</td>
-                                    <td>
+                                    <td  class="col-sm-5">{{ $product->translate('ru')->title }}</td>
+                                    <td  class="col-sm-3">{{ $product->category->title }}</td>
+                                    <td  class="col-sm-2">
                                         <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}"><i class="fa fa-btn fa-edit"></i> Edit</a>
 
                                         <form action="{{ url('backend/products/'.$product->id) }}" method="POST" style="display: inline-block">

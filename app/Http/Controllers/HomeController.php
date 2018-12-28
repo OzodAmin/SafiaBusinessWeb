@@ -40,6 +40,14 @@ class HomeController extends AppBaseController
         return view('shop.showProduct', compact(['product']));
     }
 
+    public function showCatPro(Request $request)
+    {
+        $locale = $this->locale;
+        $this->repository->pushCriteria(new RequestCriteria($request));
+        $products = $this->repository->paginate(12);
+        return view('shop.welcome', compact(['products', 'locale']));
+    }
+
     public function addToCart(Request $request){
         $product = $this->repository->findWithoutFail($request->id);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
