@@ -3737,16 +3737,6 @@ SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
 .bg1-overlay {background-color: rgba(0,0,0,0.35);}
 
 
-/*[  ]
------------------------------------------------------------
-*/
-.bg1-pattern {
-	background-image: url(../images/icons/pattern1.png);
-  	background-repeat: repeat;
-}
-
-
-
 /*[ Border ]
 ///////////////////////////////////////////////////////////
 */

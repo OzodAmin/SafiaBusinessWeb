@@ -8,8 +8,10 @@ function()
 {
 	Route::get('/', 'HomeController@index');
     Route::get('product/{slug}', ['as'=> 'product.show', 'uses' => 'HomeController@showProduct']);
-    Route::get('category/{slug}', ['as'=> 'category.show', 'uses' => 'HomeController@showCatPro']);
+    Route::get('category/{catId}', ['as'=> 'category.show', 'uses' => 'HomeController@showCatPro']);
+    Route::get('remove/{id}', ['as'=> 'product.remove', 'uses' => 'HomeController@getRemoveItem']);
     Route::get('add-to-cart','HomeController@addToCart');
+    Route::get('getCatName','HomeController@getCatName');
     Route::get('shopping-cart',['as'=> 'product.shoppingCart','uses' =>'HomeController@showCart']);
     Auth::routes();
 });

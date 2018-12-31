@@ -4,25 +4,25 @@
 
     /*[ Load page ]
     ===========================================================*/
-    $(".animsition").animsition({
-        inClass: 'fade-in',
-        outClass: 'fade-out',
-        inDuration: 1500,
-        outDuration: 800,
-        linkElement: '.animsition-link',
-        loading: true,
-        loadingParentElement: 'html',
-        loadingClass: 'animsition-loading-1',
-        loadingInner: '<div data-loader="ball-scale"></div>',
-        timeout: false,
-        timeoutCountdown: 5000,
-        onLoadEvent: true,
-        browser: [ 'animation-duration', '-webkit-animation-duration'],
-        overlay : false,
-        overlayClass : 'animsition-overlay-slide',
-        overlayParentElement : 'html',
-        transition: function(url){ window.location.href = url; }
-    });
+    // $(".animsition").animsition({
+    //     inClass: 'fade-in',
+    //     outClass: 'fade-out',
+    //     inDuration: 1500,
+    //     outDuration: 800,
+    //     linkElement: '.animsition-link',
+    //     loading: true,
+    //     loadingParentElement: 'html',
+    //     loadingClass: 'animsition-loading-1',
+    //     loadingInner: '<div data-loader="ball-scale"></div>',
+    //     timeout: false,
+    //     timeoutCountdown: 5000,
+    //     onLoadEvent: true,
+    //     browser: [ 'animation-duration', '-webkit-animation-duration'],
+    //     overlay : false,
+    //     overlayClass : 'animsition-overlay-slide',
+    //     overlayParentElement : 'html',
+    //     transition: function(url){ window.location.href = url; }
+    // });
     
     /*[ Back to top ]
     ===========================================================*/
@@ -147,30 +147,6 @@
     $('.btn-romove-top-noti').on('click', function(){
         $(this).parent().remove();
     })
-
-
-    /*[ Block2 button wishlist ]
-    ===========================================================*/
-    $('.block2-btn-addwishlist').on('click', function(e){
-        e.preventDefault();
-        $(this).addClass('block2-btn-towishlist');
-        $(this).removeClass('block2-btn-addwishlist');
-        $(this).off('click');
-    });
-
-    /*[ +/- num product ]
-    ===========================================================*/
-    $('.btn-num-product-down').on('click', function(e){
-        e.preventDefault();
-        var numProduct = Number($(this).next().val());
-        if(numProduct > 1) $(this).next().val(numProduct - 1);
-    });
-
-    $('.btn-num-product-up').on('click', function(e){
-        e.preventDefault();
-        var numProduct = Number($(this).prev().val());
-        $(this).prev().val(numProduct + 1);
-    });
 
 
     /*[ Show content Product detail ]

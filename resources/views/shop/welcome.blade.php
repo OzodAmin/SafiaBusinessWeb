@@ -47,15 +47,21 @@
                                 @endif
 
                                 <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                    <a href="#" class="block2-btn-towishlist trans-0-4">
+                                        <i class="icon_heart_alt" aria-hidden="true"></i>
+                                        <i class="icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
 
                                     <div class="block2-btn-addcart w-size1 trans-0-4">
                                         <button class="flex-c-m size1 btnAddCart bg4 bo-rad-23 hov1 s-text1 trans-0-4 m-b-10" onclick="addtocart('{{ $product->translate($locale)->title }}', {{ $product->id }})">
                                             Add to Cart
                                         </button>
+
+                                        <a href="{{ LaravelLocalization::getLocalizedURL($locale, 'product/'.$product->translate($locale)->slug) }}"
+                                           class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4 m-b-10"
+                                           onclick="addWishList('{{ $product->translate($locale)->title }}', {{ $product->id }})">
+                                            Add to favorite
+                                        </a>
 
                                         <a href="{{ LaravelLocalization::getLocalizedURL($locale, 'product/'.$product->translate($locale)->slug) }}" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
                                             View
@@ -102,12 +108,37 @@
             });
         };
 
-        $('.block2-btn-addwishlist').each(function(){
-            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-            $(this).on('click', function(){
-                swal(nameProduct, "is added to wishlist !", "success");
+        function addWishList(nameProduct, id) {
+            $.ajax({
+                type:"GET",
+                url:"{{url('add-to-wish')}}?id="+id,
+                success:function(res){
+                    if(res){
+                        swal(nameProduct, "is added to wishlist !", "success");
+                    }
+                }
             });
+        };
+        /*[ Block2 button wishlist ]*/
+        $('.block2-btn-addwishlist').on('click', function(e){
+            e.preventDefault();
+            $(this).addClass('block2-btn-towishlist');
+            $(this).removeClass('block2-btn-addwishlist');
+            $(this).off('click');
         });
+
+        $('.block2-btn-towishlist').on('click', function(e){
+            e.preventDefault();
+            $(this).addClass('block2-btn-addwishlist');
+            $(this).removeClass('block2-btn-towishlist');
+            $(this).off('click');
+        });
+        // $('.block2-btn-addwishlist').each(function(){
+        //     var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+        //     $(this).on('click', function(){
+        //         swal(nameProduct, "is added to wishlist !", "success");
+        //     });
+        // });
 
         //filter 
         var filterBar = document.getElementById('filter-bar');
