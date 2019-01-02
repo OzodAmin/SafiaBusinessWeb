@@ -17,6 +17,7 @@ function()
 
     Route::get('add-to-favorite','FavoriteController@addToFavorite');
     Route::get('remove-favorite','FavoriteController@removeFavorite');
+    Route::get('favourites', 'FavoriteController@getFavourites');
 
     Auth::routes();
 });

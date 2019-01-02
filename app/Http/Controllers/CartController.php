@@ -1,20 +1,16 @@
 <?php
 namespace App\Http\Controllers;
 
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Cart;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
-use App\Cart;
 use Session;
 
 class CartController extends AppBaseController
 {
     private $repository;
-    private $locale;
-
     public function __construct(ProductRepository $repo)
     {
-        $this->locale = LaravelLocalization::getCurrentLocale();
         $this->middleware('auth');
         $this->repository = $repo;
     }
@@ -40,7 +36,7 @@ class CartController extends AppBaseController
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        return view('shop.cartShow', ['cart' => $cart, 'locale' => $this->locale]);
+        return view('shop.cartShow', ['cart' => $cart]);
     }
 
     public function getRemoveItem(Request $request)

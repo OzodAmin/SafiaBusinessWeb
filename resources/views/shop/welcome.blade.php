@@ -156,7 +156,6 @@
                     }
                 });
             }
-
         };
         /*[ Block2 button wishlist ]*/
         $('.block2-btn-addwishlist').on('click', function (e) {

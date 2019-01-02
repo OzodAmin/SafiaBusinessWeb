@@ -3,7 +3,7 @@
         <nav class="menu">
             <ul class="main_menu">
                 <li class="sale-noti">
-                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ LaravelLocalization::getLocalizedURL($locale, '/') }}">Home</a>
                 </li>
 
                 @foreach($categories as $category)
@@ -17,7 +17,7 @@
     </div>
 @else
     <li class="item-menu-mobile">
-        <a href="{{ url('/') }}">Home</a>
+        <a href="{{ LaravelLocalization::getLocalizedURL($locale, '/') }}">Home</a>
     </li>
     @foreach($categories as $category)
     <li class="item-menu-mobile">

@@ -21,12 +21,13 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('*', function ($view) {
             if (Auth::check()) {
+                $locale = LaravelLocalization::getCurrentLocale();
                 $favorites = DB::select('select product_id from favorites where user_id = :id', ['id' => Auth::id()]);
                 $favoritesArray = [];
                 foreach($favorites as $item) {
                     $favoritesArray[$item->product_id] = $item->product_id;
                 }
-                $view->with(compact(['favoritesArray']));
+                $view->with(compact(['favoritesArray', 'locale']));
             }
         });
 

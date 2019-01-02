@@ -17,21 +17,18 @@ class HomeController extends AppBaseController
 {
     private $repository;
     private $catId;
-    private $locale;
 
     public function __construct(ProductRepository $repo)
     {
-        $this->locale = LaravelLocalization::getCurrentLocale();
         $this->middleware('auth');
         $this->repository = $repo;
     }
 
     public function index(Request $request)
     {
-        $locale = $this->locale;
         $this->repository->pushCriteria(new RequestCriteria($request));
         $products = $this->repository->paginate(12);
-        return view('shop.welcome', compact(['products', 'locale']));
+        return view('shop.welcome', compact(['products']));
     }
 
     public function showProduct($slug)
@@ -49,7 +46,6 @@ class HomeController extends AppBaseController
 
     public function showCatPro(Request $request)
     {
-        $locale = $this->locale;
         $this->repository->pushCriteria(new RequestCriteria($request));
         $this->catId = $request->catId;
         $this->repository->scopeQuery(
@@ -57,7 +53,7 @@ class HomeController extends AppBaseController
                 return $model->where('category_id', $this->catId);
             });
         $products = $this->repository->paginate(12);
-        return view('shop.welcome', compact(['products', 'locale']));
+        return view('shop.welcome', compact(['products']));
     }
 
     public function getCatName()
