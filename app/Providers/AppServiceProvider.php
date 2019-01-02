@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
-use App\Cart;
-use App\Models\Category;
-use Illuminate\Support\ServiceProvider;
-use Session;
-use Illuminate\Support\Facades\Schema;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
+use App\Models\Category;
+use App\Cart;
+use Session;
+use Auth;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +18,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        view()->composer('*', function ($view) {
+            if (Auth::check()) {
+                $favorites = DB::select('select product_id from favorites where user_id = :id', ['id' => Auth::id()]);
+                $favoritesArray = [];
+                foreach($favorites as $item) {
+                    $favoritesArray[$item->product_id] = $item->product_id;
+                }
+                $view->with(compact(['favoritesArray']));
+            }
+        });
 
         view()->composer('layouts.menu', function ($view) {
 

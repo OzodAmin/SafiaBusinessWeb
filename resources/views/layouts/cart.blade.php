@@ -1,6 +1,6 @@
 <img src="{{ asset('front/images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
 <span class="header-icons-noti cartQty">
-    <?= Session::has('cart') ? Session::get('cart')->totalQty : 0; ?>  
+    <?= Session::has('cart') ? Session::get('cart')->totalQty : 0; ?>
 </span>
 
 <!-- Header cart noti -->
@@ -9,24 +9,25 @@
         <ul class="header-cart-wrapitem">
             @foreach($cart->items as $item)
                 <li class="header-cart-item">
-                    <a href="{{ route('product.remove', ['id' => $item['item']['id']]) }}">
+                    <a href="{{ route('product.remove', ['id' => $item['id']]) }}">
                         <div class="header-cart-item-img">
-                            @if ($item['item']['featured_image']) {{ Html::image('uploads/product/admin_'.$item['item']['featured_image']) }}
+                            @if ($item['featured_image']) {{ Html::image('uploads/product/admin_'.$item['featured_image']) }}
                             @else {{ Html::image('img/320.jpg') }}
                             @endif
                         </div>
                     </a>
 
                     <div class="header-cart-item-txt">
-                        <a href="{{ LaravelLocalization::getLocalizedURL($locale, 'product/'.$item['item']['slug']) }}"
+                        <a href="{{ LaravelLocalization::getLocalizedURL($locale, 'product/'.$item['slug']) }}"
                            class="header-cart-item-name">
-                            {{ $item['item']['title'] }}
+                            {{ $item['title'] }}
                         </a>
 
                         <span class="header-cart-item-info">
-                            {!! $item['qty'].'&nbsp;x&nbsp;'.$item['item']['price'] !!}&nbsp;{!! __('product.Sum') !!}
+                            {!! $item['price'] !!}&nbsp;{!! __('product.Sum') !!}
                         </span>
                     </div>
+                    <span class="dis-none" id="cartProductId-{!! $item['id'] !!}">{!! $item['id'] !!}</span>
                 </li>
             @endforeach
         </ul>

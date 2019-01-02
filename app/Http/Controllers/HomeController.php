@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App;
-use App\Cart;
-use App\Models\Product;
-use App\Repositories\ProductRepository;
-use Auth;
-use Illuminate\Http\Request;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Prettus\Repository\Criteria\RequestCriteria;
+use App\Repositories\ProductRepository;
+use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Cart;
 use Session;
+use Auth;
+use App;
 use DB;
 
 class HomeController extends AppBaseController
@@ -60,20 +60,6 @@ class HomeController extends AppBaseController
         return view('shop.welcome', compact(['products', 'locale']));
     }
 
-    public function addToCart(Request $request)
-    {
-        $product = $this->repository->findWithoutFail($request->id);
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        if (isset($request->qty))
-            $cart->add($product, $product->id, $request->qty);
-        else
-            $cart->add($product, $product->id);
-
-        $request->session()->put('cart', $cart);
-        return back();
-    }
-
     public function getCatName()
     {
         $catName = DB::table('measurement_translations')
@@ -82,28 +68,5 @@ class HomeController extends AppBaseController
             ->get();
 
         return response()->json($catName);
-    }
-
-    public function showCart()
-    {
-        if (!Session::has('cart')) {
-            return view('shop.cartShow');
-        }
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-        return view('shop.cartShow', ['cart' => $cart, 'locale' => $this->locale]);
-    }
-
-    public function getRemoveItem(Request $request)
-    {
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->removeItem($request->id);
-
-        if (count($cart->items) > 0)
-            $request->session()->put('cart', $cart);
-        else
-            $request->session()->forget('cart');
-        return redirect()->back();
     }
 }

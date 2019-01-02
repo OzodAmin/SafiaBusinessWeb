@@ -17,26 +17,21 @@ class Cart
         }
     }
 
-    public function add($item, $id, $quantity = 1)
+    public function add($item, $id)
     {
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
-
         if ($this->items) {
             if (array_key_exists($id, $this->items)) {
-                $storedItem = $this->items[$id];
+                return;
             }
         }
-
-        $storedItem['qty']= $quantity;
-        $storedItem['price'] = $item->price * $storedItem['qty'];
-        $this->items[$id] = $storedItem;
-        $this->totalQty+= $quantity;
+        $this->items[$id] = $item;
+        $this->totalQty += 1;
         $this->totalPrice += $item->price;
     }
 
     public function removeItem($id)
     {
-        $this->totalQty -= $this->items[$id]['qty'];
+        $this->totalQty -= 1;
         $this->totalPrice -= $this->items[$id]['price'];
         unset($this->items[$id]);
     }

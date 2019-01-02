@@ -7,12 +7,17 @@ Route::group(
 function()
 {
 	Route::get('/', 'HomeController@index');
+	Route::get('getCatName','HomeController@getCatName');
     Route::get('product/{slug}', ['as'=> 'product.show', 'uses' => 'HomeController@showProduct']);
     Route::get('category/{catId}', ['as'=> 'category.show', 'uses' => 'HomeController@showCatPro']);
-    Route::get('remove/{id}', ['as'=> 'product.remove', 'uses' => 'HomeController@getRemoveItem']);
-    Route::get('add-to-cart','HomeController@addToCart');
-    Route::get('getCatName','HomeController@getCatName');
-    Route::get('shopping-cart',['as'=> 'product.shoppingCart','uses' =>'HomeController@showCart']);
+
+    Route::get('remove/{id}', ['as'=> 'product.remove', 'uses' => 'CartController@getRemoveItem']);
+    Route::get('shopping-cart',['as'=> 'product.shoppingCart','uses' =>'CartController@showCart']);
+    Route::get('add-to-cart','CartController@addToCart');
+
+    Route::get('add-to-favorite','FavoriteController@addToFavorite');
+    Route::get('remove-favorite','FavoriteController@removeFavorite');
+
     Auth::routes();
 });
 

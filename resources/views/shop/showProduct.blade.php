@@ -33,21 +33,7 @@
                 <div class="p-t-33 p-b-60">
                     <div class="flex-w p-t-10">
                         <div class="w-size16 flex-m flex-w">
-                            <div class="flex-w bo5 of-hidden m-r-22 m-t-10 m-b-10">
-                                <button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-                                    <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-                                </button>
-
-                                <input id="qty" class="size8 m-text18 t-center num-product" type="number"
-                                       name="num-product" value="<?= isset($quantity) ? $quantity : 1?>">
-                                <div class="input-group-addon">{{ $product->measure->title_short }}</div>
-
-                                <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-                                    <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </div>
-
-                            <div class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
+                            <div class="btn-addcart-product-detail size9 trans-0-4">
                                 <!-- Button -->
                                 <button class="btnAddCart flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4"
                                         onclick="addtocart('{{ $product->title }}', {{ $product->id }})">
@@ -173,55 +159,41 @@
 @section('scripts')
     <script type="text/javascript">
         function addtocart(nameProduct, id) {
-            var diffProduct = parseFloat($('#min_order').text());
-            var qty = parseFloat($('#qty').val().replace(",", "."));
-            if (Number(qty % diffProduct) == 0 && qty > 0) {
+
+            var cartProductId = $("#cartProductId-" + id).html();
+
+            if (typeof cartProductId == 'undefined') {
                 $.ajax({
                     type: "GET",
-                    url: "{{url('add-to-cart')}}?id=" + id + "&qty=" + qty,
+                    url: "{{url('add-to-cart')}}?id=" + id,
                     success: function (res) {
                         if (res) {
                             swal(nameProduct, "is added to cart !", "success");
-                            var cartQty = Number($('.cartQty').html()) + qty;
+                            var cartQty = $('.cartQty').html();
+                            cartQty++;
                             $('.cartQty').text(cartQty);
                         }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        swal("Status: " + textStatus, "Error: " + errorThrown, "error");
                     }
                 });
             } else {
-                var measure = $('#measure').text();
-                swal("Wrong product quantity input", "Min order is " + diffProduct + " " + measure, "error");
+                swal("Ooops..", "This product already in busket", "error");
             }
-
         };
 
         /*[ +/- num product ]*/
         $('.btn-num-product-down').on('click', function (e) {
             e.preventDefault();
-            var qty = parseFloat($('#qty').val().replace(",", "."));
-            var diffProduct = parseFloat($('#min_order').text());
-            var resultProduct = Number(qty - diffProduct);
-            if (Number(resultProduct % diffProduct) == 0) {
-                if (resultProduct > 0) $(this).next().val(resultProduct);
-            } else {
-                var measure = $('#measure').text();
-                swal("Wrong product quantity input", "Min order is " + diffProduct + " " + measure, "error");
-                $(this).next().val(Math.floor(qty));
-            }
+            var numProduct = Number($(this).next().val());
+            if (numProduct > 1) $(this).next().val(numProduct - 1);
         });
 
         $('.btn-num-product-up').on('click', function (e) {
             e.preventDefault();
-            var qty = parseFloat($('#qty').val().replace(",", "."));
-            var diffProduct = parseFloat($('#min_order').text());
-            var resultProduct = Number(qty + diffProduct);
-            // alert(1.1 % 0.1);
-            if (Number(resultProduct % diffProduct) == 0) {
-                $(this).prev().prev().val(resultProduct);
-            } else {
-                var measure = $('#measure').text();
-                swal("Wrong product quantity input", "Min order is " + diffProduct + " " + measure, "error");
-                $(this).prev().prev().val(Math.floor(qty));
-            }
+            var numProduct = Number($(this).prev().prev().val());
+            $(this).prev().prev().val(numProduct + 1);
         });
     </script>
 @endsection
