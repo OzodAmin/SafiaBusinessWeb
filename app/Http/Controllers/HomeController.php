@@ -8,6 +8,7 @@ use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Cart;
+use App\User;
 use Session;
 use Auth;
 use App;
@@ -33,14 +34,9 @@ class HomeController extends AppBaseController
 
     public function showProduct($slug)
     {
-        $product = Product::whereTranslation('locale', $this->locale)->whereTranslation('slug', $slug)->first();
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        if (isset($oldCart)) {
-            if (array_key_exists($product->id, $oldCart->items)) {
-                $quantity = $oldCart->items[$product->id]['qty'];
-                return view('shop.showProduct', compact(['product', 'quantity']));
-            }
-        }
+        $locale = LaravelLocalization::getCurrentLocale();
+        $product = Product::whereTranslation('locale', $locale)->whereTranslation('slug', $slug)->first();
+
         return view('shop.showProduct', compact(['product']));
     }
 
@@ -64,5 +60,10 @@ class HomeController extends AppBaseController
             ->get();
 
         return response()->json($catName);
+    }
+
+    public function getUser(){
+        $user = User::find(auth()->id());
+        return view('shop.user', compact(['user']));
     }
 }

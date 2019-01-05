@@ -7,13 +7,13 @@
     <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
              style="background-image: url({{ asset('front/images/icons/heading-bg.jpg') }});">
         <h2 class="l-text2 t-center">
-            Cart
+            Favourite
         </h2>
     </section>
-    <!-- Cart -->
+    <!-- Favourite -->
     <section class="cart bgwhite p-t-70 p-b-100">
         <div class="container">
-            <!-- Cart item -->
+            <!-- Favourite item -->
             @if(count($products) > 0) 
             <div class="container-table-cart pos-relative">
                 <div class="wrap-table-shopping-cart bgwhite">
@@ -22,8 +22,8 @@
                             <th class="column-1"></th>
                             <th class="column-2">Product</th>
                             <th class="column-3">Price</th>
-                            <th class="column-4 p-l-70">Quantity</th>
-                            <th class="column-5">Total</th>
+                            <th class="column-4 p-l-70">Add to cart</th>
+                            <th class="column-5">Delete</th>
                         </tr>
                         @foreach($products as $item)
                             <tr class="table-row">
@@ -48,9 +48,17 @@
                                     {{ $item->price }}&nbsp;{!! __('product.Sum') !!}&nbsp;/&nbsp;{!! __('product.'.$item->measure_id) !!}
                                 </td>
                                 <td class="column-4 p-l-70">
-
+                                    <button class="flex-c-m size9 bg1 bo-rad-23 hov1 s-text1 trans-0-4"
+                                            onclick="addtocart('{{ $item->title }}', {{ $item->id }})">
+                                        Add to cart
+                                    </button>
                                 </td>
-                                <td class="column-5"></td>
+                                <td class="column-5">
+                                    <button class="flex-c-m size8 bg1 bo-rad-23 hov1 s-text1 trans-0-4"
+                                            onclick="remove('{{ $item->title }}', {{ $item->id }})">
+                                        <i class="fa fa-btn fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         @endforeach
                     </table>
@@ -59,12 +67,45 @@
             @else
                 <h1>Favourites list is empty</h1>
             @endif
+            <div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
+                <div class="size15 trans-0-4">
+                    <!-- Button -->
+                    <a href="{{ route('product.shoppingCart') }}" 
+                        class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+                        View Cart
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    function remove(nameProduct, id, isFavorite) {
+    function addtocart(nameProduct, id) {
+        var cartProductId = $("#cartProductId-" + id).html();
+
+        if (typeof cartProductId == 'undefined') {
+            $.ajax({
+                type: "GET",
+                url: "{{url('add-to-cart')}}?id=" + id,
+                success: function (res) {
+                    if (res) {
+                        swal(nameProduct, "is added to cart !", "success");
+                        var cartQty = $('.cartQty').html();
+                        cartQty++;
+                        $('.cartQty').text(cartQty);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    swal("Status: " + textStatus, "Error: " + errorThrown, "error");
+                }
+            });
+        } else {
+            swal("Ooops..", "This product already in busket", "error");
+        }
+    };
+
+    function remove(nameProduct, id) {
         $.ajax({
             type: "GET",
             url: "{{url('remove-favorite')}}?product_id=" + id,

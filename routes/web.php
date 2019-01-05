@@ -10,6 +10,7 @@ function()
 	Route::get('getCatName','HomeController@getCatName');
     Route::get('product/{slug}', ['as'=> 'product.show', 'uses' => 'HomeController@showProduct']);
     Route::get('category/{catId}', ['as'=> 'category.show', 'uses' => 'HomeController@showCatPro']);
+    Route::get('user', ['as'=> 'user.show', 'uses' => 'HomeController@getUser']);
 
     Route::get('remove/{id}', ['as'=> 'product.remove', 'uses' => 'CartController@getRemoveItem']);
     Route::get('shopping-cart',['as'=> 'product.shoppingCart','uses' =>'CartController@showCart']);
@@ -18,6 +19,9 @@ function()
     Route::get('add-to-favorite','FavoriteController@addToFavorite');
     Route::get('remove-favorite','FavoriteController@removeFavorite');
     Route::get('favourites', 'FavoriteController@getFavourites');
+
+    Route::resource('order', 'OrderController');
+    Route::get('getOrderCountAjax','OrderController@getOrderCountAjax');
 
     Auth::routes();
 });

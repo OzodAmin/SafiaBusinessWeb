@@ -40,13 +40,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             'address' => 'required'
     ];
 
-    public function city()
-    {
-        return $this->belongsTo(City::class, 'cityId', 'id');
-    }
-
-    public function district()
-    {
-        return $this->belongsTo(District::class, 'districtId', 'id');
-    }
+    public function city(){return $this->belongsTo(City::class, 'cityId', 'id');}
+    public function district(){return $this->belongsTo(District::class, 'districtId', 'id');}
 }

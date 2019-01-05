@@ -26,7 +26,7 @@
 <div class="clearfix"></div>
                         <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Юридическое название организации</label>
-                            {{ $user->legal_name }}
+                            {{ $user->companyLegalName }}
                         </div>
 <div class="clearfix"></div>
                         <div class="form-group">
