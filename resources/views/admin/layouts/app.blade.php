@@ -74,7 +74,7 @@
           <!-- Notifications Menu -->
           <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
-            <a href="#">
+            <a href="{{ route('orders.index') }}">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning" id="notification">0</span>
             </a>

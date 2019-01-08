@@ -54,6 +54,7 @@
         <li><a href="{{ route('measures.index') }}"><i class="fa fa-balance-scale"></i> <span>Ед. измерения</span></a></li>
         <li><a href="{{ route('categories.index') }}"><i class="fa fa-share"></i> <span>Категории</span></a></li>
         <li><a href="{{ route('products.index') }}"><i class="fa fa-birthday-cake"></i> <span>Products</span></a></li>
+        <li><a href="{{ route('orders.index') }}"><i class="fa fa-bell-o"></i> <span>Orders</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

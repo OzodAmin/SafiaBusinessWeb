@@ -239,7 +239,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-
+        'Order'     => App\Models\Order::class
     ],
 
 ];

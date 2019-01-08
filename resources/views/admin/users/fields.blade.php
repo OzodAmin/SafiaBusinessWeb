@@ -17,8 +17,8 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-sm-12">
-        {!! Form::label('legal_name', 'Юридическое название организации') !!}
-        {{ Form::text('legal_name', isset($user) ? $user->legal_name : null, ['class' => 'form-control']) }}
+        {!! Form::label('companyLegalName', 'Юридическое название организации') !!}
+        {{ Form::text('companyLegalName', isset($user) ? $user->companyLegalName : null, ['class' => 'form-control']) }}
     </div>
         
     <div class="clearfix"></div>

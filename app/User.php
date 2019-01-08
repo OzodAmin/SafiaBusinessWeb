@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     use EntrustUserTrait;
 
     protected $fillable = [
-        'name', 'email', 'password', 'sex', 'dob', 'companyName', 'mobile', 'phone', 'cityId', 'districtId', 'address', 'legal_name', 'discount'
+        'name', 'email', 'password', 'sex', 'dob', 'companyName', 'mobile', 'phone', 'cityId', 'districtId', 'address', 'companyLegalName', 'discount'
     ];
 
     protected $hidden = [
@@ -33,7 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             'sex' => 'required',
             'dob' => 'required',
             'companyName' => 'required', 
-            'mobile' => 'required', 
+            'companyLegalName' => 'required',
+            'mobile' => 'required',
             'phone' => 'required', 
             'cityId' => 'required', 
             'districtId' => 'required', 

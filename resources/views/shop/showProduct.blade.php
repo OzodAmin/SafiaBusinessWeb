@@ -21,7 +21,7 @@
                 </h4>
 
                 <span class="m-text17">
-                    {{ $product->price }}&nbsp;{!! __('product.Sum') !!}
+                    <?= number_format($product->price, 0, '.', ' '); ?>&nbsp;{!! __('product.Sum') !!}
                 </span>
 
                 <p class="m-text15 p-t-10">

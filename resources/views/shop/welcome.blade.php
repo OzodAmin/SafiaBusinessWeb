@@ -93,7 +93,7 @@
                                         </a>
 
                                         <span class="block2-price m-text6 p-r-5">
-                                    {{ $product->price }} {!! __('product.Sum') !!}
+                                            <?= number_format($product->price, 0, '.', ' '); ?> {!! __('product.Sum') !!} / {{ $product->measure->translate($locale)->title_short }}
                                 </span>
                                     </div>
                                 </div>

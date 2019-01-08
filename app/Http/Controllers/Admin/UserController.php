@@ -64,13 +64,13 @@ class UserController extends AppBaseController
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'legal_name' => 'required|max:255',
             'discount' => 'integer|required',
             'email' => 'required|email|max:255|unique:users',
             'sex' => 'required',
             'dob' => 'required',
             'companyName' => 'required', 
-            'mobile' => 'required', 
+            'companyLegalName' => 'required',
+            'mobile' => 'required',
             'phone' => 'required', 
             'cityId' => 'required', 
             'districtId' => 'required', 
@@ -84,7 +84,7 @@ class UserController extends AppBaseController
         ]);
 
         $request['password'] = Hash::make($request['password']);
-        $input = $request->only('name', 'email', 'password', 'sex', 'dob', 'companyName', 'mobile', 'phone', 'cityId', 'districtId', 'address', 'legal_name', 'discount');
+        $input = $request->only('name', 'email', 'password', 'sex', 'dob', 'companyName', 'mobile', 'phone', 'cityId', 'districtId', 'address', 'companyLegalName', 'discount');
         $user = User::create($input);
         
         $user->attachRole(5);

@@ -42,6 +42,8 @@ Route::group(['prefix' => 'backend','middleware' => ['role:admin']], function() 
     Route::resource('sizes', 'Admin\SizeController');
     Route::resource('products', 'Admin\ProductController');
     Route::resource('measures', 'Admin\MeasureController');
+    Route::resource('orders', 'Admin\OrderBackendController');
+    Route::get('removeProductFromOrder', 'Admin\OrderBackendController@productRemove');
 
     Route::get('api/getDistricts','Admin\UserController@getDistricts');
     Route::get('users/reset/{id}','Admin\UserController@reset');

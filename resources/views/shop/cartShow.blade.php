@@ -10,12 +10,24 @@
             Cart
         </h2>
     </section>
-    @if (Session::has('cart'))
-        <!-- Cart -->
-        <section class="cart bgwhite p-t-70 p-b-100">
-            <div class="container">
+    <section class="cart bgwhite p-t-70 p-b-100">
+        <div class="container">
+            @if (Session::has('cart'))
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 {!! Form::open(['route' => 'order.store']) !!}
-                <!-- Cart item -->
+            <!-- Cart item -->
                 <div class="container-table-cart pos-relative">
                     <div class="wrap-table-shopping-cart bgwhite">
                         <table class="table-shopping-cart">
@@ -26,7 +38,7 @@
                                 <th class="column-5">Quantity</th>
                                 <th class="column-4 p-l-70">Total</th>
                             </tr>
-                            
+
                             @foreach($cart->items as $item)
                                 <tr class="table-row">
                                     <td class="column-1">
@@ -47,7 +59,7 @@
                                         <p>
                                             <span id="price_{{ $item->id }}">{{ $item->price }}</span>
                                             &nbsp;{!! __('product.Sum') !!}
-                                            /&nbsp;{!! __('product.'.$item->measure_id) !!}
+                                            /&nbsp;{{ $item->measure->translate($locale)->title_short }}
                                         </p>
                                     </td>
 
@@ -62,11 +74,11 @@
                                             </button>
 
                                             <input class="size8 m-text18 t-center num-product"
-                                                    type="text" name="quantity[]" value="1"
-                                                    onchange="qtyChange({{ $item->id }}, this.value)"
-                                                    onkeypress="javascript:return isNumber(event)">
-                                            <input type="hidden" name="ptoduct_id[]" value="{{ $item->id }}">       
-                                            
+                                                   type="text" name="quantity[]" value="1"
+                                                   onchange="qtyChange({{ $item->id }}, this.value)"
+                                                   onkeypress="javascript:return isNumber(event)">
+                                            <input type="hidden" name="ptoduct_id[]" value="{{ $item->id }}">
+
                                             <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
                                                 <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
                                             </button>
@@ -74,10 +86,10 @@
                                     </td>
                                     <td class="column-4 p-l-70">
                                         <span id="total_{{ $item->id }}" class="prices">{{ $item->price }}</span>
-                                            &nbsp;{!! __('product.Sum') !!}&nbsp;&nbsp;
-                                            <a href="{{ route('product.remove', ['id' => $item->id]) }}">
-                                                <i class="fa fa-btn fa-trash"></i>
-                                            </a>
+                                        &nbsp;{!! __('product.Sum') !!}&nbsp;&nbsp;
+                                        <a href="{{ route('product.remove', ['id' => $item->id]) }}">
+                                            <i class="fa fa-btn fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -100,7 +112,7 @@
                     <div class="flex-w flex-sb-m p-t-26 p-b-10">
                         <label class="m-text21">Prefered time</label>
                         <select class="form-control" name="prefered_time">
-                            <option>--Select--</option>
+                            <option value="-">--Select--</option>
                             <option value="9:00 - 12:00">9:00 - 12:00</option>
                             <option value="12:00 - 15:00">12:00 - 15:00</option>
                             <option value="15:00 - 20:00">15:00 - 20:00</option>
@@ -113,7 +125,8 @@
                         </span>
                         <span class="m-text21 w-full-sm">
                             <div class="w-size19 input-group">
-                                <input id="cartTotal" name="total_price" type="text" value="{{ $cart->totalPrice }}" readonly>
+                                <input id="cartTotal" name="total_price" type="text" value="{{ $cart->totalPrice }}"
+                                       readonly>
     						    <div class="input-group-addon">{!! __('product.Sum') !!}</div>
                             </div>
 					    </span>
@@ -127,15 +140,15 @@
                     </div>
                 </div>
                 {!! Form::close() !!}
-            </div>
-        </section>
-    @else
-        <h1>Cart is empty</h1>
-    @endif
+            @else
+                <h1>Cart is empty</h1>
+            @endif
+        </div>
+    </section>
 @endsection
 @section('scripts')
     <script>
-        function qtyChange(id, val){
+        function qtyChange(id, val) {
             var price = Number($('#price_' + id).text());
             var result = val * price;
             $('#total_' + id).text(result);
@@ -148,7 +161,7 @@
                 return false;
 
             return true;
-        }    
+        }
 
         function calculate() {
             var divs = document.getElementsByClassName("prices");
@@ -159,10 +172,10 @@
             $('#cartTotal').val(totalCartPrice);
         }
 
-        $('.btn-num-product-down').on('click', function(e){
+        $('.btn-num-product-down').on('click', function (e) {
             e.preventDefault();
             var numProduct = Number($(this).next().val());
-            if(numProduct > 0){
+            if (numProduct > 0) {
                 var id = $(this).next().next().val();
                 var res = numProduct - 1;
                 if (res > 0) {
@@ -175,13 +188,13 @@
             calculate();
         });
 
-        $('.btn-num-product-up').on('click', function(e){
+        $('.btn-num-product-up').on('click', function (e) {
             e.preventDefault();
             var numProduct = Number($(this).prev().prev().val());
             var id = $(this).prev().val();
             var res = numProduct + 1;
             var price = Number($('#price_' + id).text());
-            $('#total_' + id).text(res * price);  
+            $('#total_' + id).text(res * price);
             $(this).prev().prev().val(res);
             calculate();
         });
